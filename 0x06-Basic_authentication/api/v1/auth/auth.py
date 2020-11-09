@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Auth module
+""" Auth class
 """
 from flask import request
 from typing import List, TypeVar
@@ -7,30 +7,24 @@ from typing import List, TypeVar
 
 class Auth():
     """
-    Auth class
+        class to manage the API authentication
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
-        require_auth function
+            require authorithation check
         """
-        if path is not None:
-            if path[len(path) - 1] is not '/':
-                path += '/'
-        if path is None or path not in excluded_paths:
+        if path is None or excluded_paths is None or not len(excluded_paths):
             return True
-        if excluded_paths is None or excluded_paths == '':
-            return True
-        return False
+        if path[-1] != '/':
+            path += '/'
+        return False if path in excluded_paths else True
 
     def authorization_header(self, request=None) -> str:
-        """
-        authorization_header function
-        """
-        return None
+        """ authorization header check"""
+        if request:
+            return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """
-        current_user function
-        """
+        """ current user method"""
         return None
