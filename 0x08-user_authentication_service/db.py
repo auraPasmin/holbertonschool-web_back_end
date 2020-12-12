@@ -68,4 +68,4 @@ class DB:
             if key not in user.__dict__:
                 raise ValueError
             setattr(user, key, value)
-        return Nones
+        return None
