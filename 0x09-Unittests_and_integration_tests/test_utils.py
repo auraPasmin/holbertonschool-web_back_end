@@ -9,7 +9,7 @@ from utils import access_nested_map
 
 class TestAccessNestedMap(unittest.TestCase):
     """
-    Test cases 0
+    Test cases 1
     """
 
     @parameterized.expand([
@@ -21,3 +21,13 @@ class TestAccessNestedMap(unittest.TestCase):
         """
         """
         self.assertEquals(access_nested_map(nested_map, path), expected)
+        
+    @parameterized.expand([
+        ({}, ("a",), KeyError),
+        ({"a": 1}, ("a", "b"), KeyError)
+    ])
+    def test_access_nested_map_exception(self, nested_map, path, expected):
+        """
+        test the access_nested_map function (exception)
+        """
+        self.assertRaises(expected)
